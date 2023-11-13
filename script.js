@@ -1,3 +1,3 @@
-const { sayHello } = require("./output");
+import sayHello from "./output.js";
 
-console.log(sayHello('Andrea'));
+console.log(sayHello('Andrea'))
