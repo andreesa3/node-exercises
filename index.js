@@ -1,25 +1,33 @@
-const players = ['Joe', 'Caroline', 'Sabrina'];
+const { EventEmitter } = require("node:events");
 
-const luckyDraw = (player) => {
-  return new Promise((resolve, reject) => {
-    const win = Boolean(Math.round(Math.random()));
-    if (win) {
-      resolve(`${player} won`);
-    } else {
-      reject(`${player} lost`);
-    }
-  });
-};
+function createNewsFeed() {
+  const emitter = new EventEmitter();
 
-const getResults = async () => {
-  for (const player of players) {
-    try {
-      const result = await luckyDraw(player);
-      console.log(result);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-};
+  setInterval(() => {
+    emitter.emit("newsEvent", "News: A thing happened in a place.");
+  }, 1000);
 
-getResults();
+  setInterval(() => {
+    emitter.emit("breakingNews", "Breaking news! A BIG thing happened.");
+  }, 4000);
+
+  setTimeout(() => {
+    emitter.emit("error", new Error("News feed connection error"));
+  }, 5000);
+
+  return emitter;
+}
+
+const newsFeed = createNewsFeed();
+
+newsFeed.on("newsEvent", (data) => {
+  console.log("newsEvent:", data);
+});
+
+newsFeed.on("breakingNews", (data) => {
+  console.log("breakingNews:", data);
+});
+
+newsFeed.on("error", (error) => {
+  console.error("error:", error.message);
+});
