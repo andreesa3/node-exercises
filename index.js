@@ -1,10 +1,21 @@
-const fs = require('fs');
+const fs = require('fs/promises');
 
-const data = 'Contenuto del file di testo 1';
+const players = ['Joe', 'Caroline', 'Sabrina'];
 
-fs.writeFile('./text1.txt', data, (err) => {
-  if (err) {
-    console.error(err);
-  }
-  console.log('<Messaggio scritto>');
-})
+const luckyDraw = (player) => {
+  return new Promise((resolve, reject) => {
+    const win = Boolean(Math.round(Math.random()));
+
+    if (win) {
+      resolve(`${player} won!`);
+    } else {
+      reject(`${player} lost!`);
+    }
+  })
+}
+
+players.forEach((player) => {
+  luckyDraw(player)
+    .then(res => console.log(res))
+    .catch(err => console.error(err))
+});
