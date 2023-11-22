@@ -1,10 +1,10 @@
-const figlet = require('figlet');
+const fs = require('fs');
 
-figlet("Hello, Andrea!!", (err, data) => {
+const data = 'Contenuto del file di testo 1';
+
+fs.writeFile('./text1.txt', data, (err) => {
   if (err) {
-    console.log("Something went wrong...");
-    console.dir(err);
-    return;
+    console.error(err);
   }
-  console.log(data);
-});
+  console.log('<Messaggio scritto>');
+})
