@@ -1,5 +1,3 @@
-const fs = require('fs/promises');
-
 const players = ['Joe', 'Caroline', 'Sabrina'];
 
 const luckyDraw = (player) => {
@@ -16,6 +14,6 @@ const luckyDraw = (player) => {
 
 players.forEach((player) => {
   luckyDraw(player)
-    .then(res => console.log(res))
+    .then(data => console.log(data))
     .catch(err => console.error(err))
 });
