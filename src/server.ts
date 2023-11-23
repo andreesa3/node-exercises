@@ -4,7 +4,7 @@ import morgan from "morgan";
 import "express-async-errors";
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 dotenv.config();
 
@@ -23,13 +23,36 @@ let planets: Planets = [
   { id: 5, name: "Jupiter" },
   { id: 6, name: "Saturn" },
   { id: 7, name: "Uranus" },
-  { id: 8, name: "Neptune" },
 ];
 
 app.use(morgan("dev"));
+app.use(express.json());
 
-app.get("/", (_, res) => {
+app.get("/api/planets", (_, res) => {
   res.status(200).json(planets);
+});
+
+app.get("/api/planets/:id", (req, res) => {
+  const { id } = req.params;
+  const planet = planets.find((p) => p.id === Number(id));
+  res.status(200).json(planet);
+});
+
+app.post("/api/planets", (req, res) => {
+  console.log(req.body);
+  const id = req.body.id;
+  const name = req.body.name;
+
+  if (!id || !name) {
+    return res.status(400).json({ error: "Both 'id' and 'name' are required." });
+  }
+
+  const newPlanet = { id, name };
+  planets = [...planets, newPlanet];
+
+  console.log(planets);
+
+  res.status(201).json({ msg: "Planet created" });
 });
 
 app.listen(port, () => {
