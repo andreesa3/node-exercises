@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import morgan from "morgan";
+import Joi from "joi";
 import "express-async-errors";
 
 const app = express();
@@ -28,6 +29,11 @@ let planets: Planets = [
 app.use(morgan("dev"));
 app.use(express.json());
 
+const planetSchema = Joi.object({
+  id: Joi.number().required(),
+  name: Joi.string().required(),
+});
+
 app.get("/api/planets", (_, res) => {
   res.status(200).json(planets);
 });
@@ -50,11 +56,14 @@ app.post("/api/planets", (req, res) => {
   }
 
   const newPlanet = { id, name };
-  planets = [...planets, newPlanet];
+  const validateNewPlanet = planetSchema.validate(newPlanet);
 
-  console.log(planets);
-
-  res.status(201).json({ msg: "Planet created" });
+  if (validateNewPlanet.error) {
+    return res.status(400).json({ msg: validateNewPlanet.error });
+  } else {
+    planets = [...planets, newPlanet];
+    res.status(201).json({ msg: "Planet created" });
+  }
 });
 
 app.put("/api/planets/:id", (req, res) => {
