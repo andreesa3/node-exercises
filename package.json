@@ -1,19 +1,19 @@
 {
-  "private": true,
-  "type": "module",
-  "engines": {
-    "node": ">=18"
-  },
+  "name": "node-exercises",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "dev": "tsc-watch --noClear -p ./tsconfig.json --outDir ./dist --onSuccess \"node ./dist/server.js\""
+    "dev": "nodemon src/server.js"
   },
-  "dependencies": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "joi": "^17.11.0",
+    "morgan": "^1.10.0"
+  },
   "devDependencies": {
-    "@tsconfig/node18": "^1.0.1",
-    "@types/express": "^4.17.14",
-    "@types/morgan": "^1.9.3",
-    "@types/node": "^18.11.9",
-    "tsc-watch": "^5.0.3",
-    "typescript": "^4.8.4"
+    "nodemon": "^3.0.1"
   }
 }

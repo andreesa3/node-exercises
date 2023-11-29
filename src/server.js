@@ -1,19 +1,9 @@
-import express from "express";
-import dotenv from "dotenv";
-import morgan from "morgan";
-import {
-  getAll,
-  getOneById,
-  create,
-  updateById,
-  deleteById,
-} from "./controllers/planets";
-import "express-async-errors";
+const express = require('express');
+const morgan = require("morgan");
+const { getAll, getOneById, create, updateById, deleteById } = require('./controllers/planets');
 
 const app = express();
-const port = process.env.PORT || 3000;
-
-dotenv.config();
+const port = 3080;
 
 app.use(morgan("dev"));
 app.use(express.json());
