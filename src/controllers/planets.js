@@ -1,6 +1,3 @@
-const express = require('express');
-const app = express();
-
 let planets = [
   { id: 1, name: "Mercury" },
   { id: 2, name: "Venus" },
