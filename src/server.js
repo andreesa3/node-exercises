@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require("morgan");
 const multer = require("multer");
 const { getAll, getOneById, create, updateById, deleteById, createImage } = require('./controllers/planets');
+const { logIn, signUp } = require('./controllers/users');
 require('dotenv').config();
 
 
@@ -38,6 +39,9 @@ app.post(
   upload.single("image"),
   createImage
 );
+
+app.post('/api/users/login', logIn);
+app.post('/api/users/signup', signUp);
 
 app.use("/uploads", express.static("uploads"));
 
