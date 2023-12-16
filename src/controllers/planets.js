@@ -1,3 +1,5 @@
+const Joi = require('joi');
+
 let planets = [
   { id: 1, name: "Mercury" },
   { id: 2, name: "Venus" },
@@ -22,6 +24,11 @@ const getOneById = (req, res) => {
 
   res.status(200).json(planet);
 };
+
+const planetSchema = Joi.object({
+  id: Joi.number().require(),
+  name: Joi.string().required(),
+});
 
 const create = (req, res) => {
   const id = req.body.id;
