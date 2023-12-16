@@ -11,13 +11,15 @@ const setupDb = async () => {
 
       CREATE TABLE planets (
         id SERIAL NOT NULL PRIMARY KEY,
-        name TEXT NOT NULL
+        name TEXT NOT NULL,
+        image TEXT
       );
   `);
 
   await db.none(`INSERT INTO planets (name) VALUES ('Earth')`);
   await db.none(`INSERT INTO planets (name) VALUES ('Mars')`);
 };
+
 
 setupDb();
 
@@ -69,10 +71,23 @@ const deleteById = async (req, res) => {
   res.status(200).json({ msg: "Planet deleted!" });
 };
 
+
+const createImage = async (req, res) => {
+  const { id } = req.params;
+  const fileName = req.file?.path;
+  if (fileName) {
+    db.none(`UPDATE planets SET image=$2 WHERE id=$1`, [id, fileName]);
+    res.status(201).json({ msg: "Planet image uploaded successfully." });
+  } else {
+    res.status(400).json({ msg: "Planet image failed to upload." });
+  }
+}
+
 module.exports = {
   getAll,
   getOneById,
   create,
   updateById,
   deleteById,
+  createImage
 }
