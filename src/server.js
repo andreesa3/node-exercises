@@ -1,12 +1,13 @@
 const express = require('express');
 const morgan = require("morgan");
-const multer = require("multer"); 
+const multer = require("multer");
 const { getAll, getOneById, create, updateById, deleteById, createImage } = require('./controllers/planets');
 require('dotenv').config();
 
 
-const app = express();
 const { PORT } = process.env;
+
+const app = express();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
