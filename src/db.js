@@ -1,6 +1,6 @@
 const pgPromise = require('pg-promise');
 
-const db = pgPromise()("postgres://postgres:postgres@localhost:5432/planets");
+const db = pgPromise()("postgres://postgres:postgres@localhost:5432/andreasaitta");
 
 const setupDb = async () => {
   await db.none(`
