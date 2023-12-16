@@ -21,7 +21,3 @@ passport.use(
     }
   )
 );
-
-module.exports = {
-  PORT,
-}
