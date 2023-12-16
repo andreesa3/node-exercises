@@ -2,7 +2,9 @@ const express = require('express');
 const morgan = require("morgan");
 const multer = require("multer");
 const { getAll, getOneById, create, updateById, deleteById, createImage } = require('./controllers/planets');
-const { logIn, signUp } = require('./controllers/users');
+const { logIn, signUp, logOut } = require('./controllers/users');
+const authorize = require('./authorize');
+const passport = require('./passport');
 require('dotenv').config();
 
 
@@ -42,6 +44,7 @@ app.post(
 
 app.post('/api/users/login', logIn);
 app.post('/api/users/signup', signUp);
+app.get('/api/users/logout', authorize, logOut);
 
 app.use("/uploads", express.static("uploads"));
 
